@@ -1,0 +1,16 @@
+[project]
+name = "berning-ai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "gspread>=6.2.1",
+    "httpx>=0.28.1",
+    "langgraph>=0.6.4",
+    "openai>=1.99.5",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.10.1",
+    "structlog>=25.4.0",
+    "tavily-python>=0.7.10",
+]
