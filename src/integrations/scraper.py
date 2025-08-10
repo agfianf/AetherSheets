@@ -60,7 +60,7 @@ class WebScraper:
         except Exception as e:
             raise Exception(f"Search failed for query '{query}': {str(e)}")
 
-    def extract_content(self, urls: list[str]) -> dict:
+    def extract_content(self, urls: list[str] | str) -> dict:
         """Extract content from specific URLs using Tavily."""
         try:
             result = self.client.extract(urls=urls)
