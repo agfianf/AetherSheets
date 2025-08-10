@@ -4,8 +4,7 @@ from config import settings
 
 
 class GoogleSheetsClient:
-    def __init__(self, api_key: str = None, spreadsheet_id: str | None = None):
-        self.api_key = api_key or settings.GOOGLE_SHEETS_API_KEY
+    def __init__(self, spreadsheet_id: str | None = None):
         self.client = None
         self.workspace = None
         self._connect()
@@ -14,9 +13,9 @@ class GoogleSheetsClient:
 
     def _connect(self):
         try:
-            # self.client = gspread.api_key(self.api_key)
-            path = "/Users/agfian/projects/finding-jobs/berning-ai/access_key_gs.json"
-            self.client = gspread.service_account(path)
+            self.client = gspread.service_account_from_dict(
+                settings.GOOGLE_SHEET_ACCESS_DICT
+            )
         except Exception as e:
             raise Exception(f"Failed to connect to Google Sheets: {str(e)}")
 
