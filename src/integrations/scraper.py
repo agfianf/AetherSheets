@@ -1,7 +1,6 @@
 import time
-from typing import Dict, List, Literal
+from typing import Literal
 
-from distro import name
 from tavily import TavilyClient
 
 from config import settings
