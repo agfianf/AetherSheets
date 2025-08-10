@@ -9,4 +9,5 @@ wheels/
 # Virtual environments
 .venv
 .env
-steady-circuit-452708-i7-68896dc4d953.json
+access_key_gs.json
+.vscode
