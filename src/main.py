@@ -88,7 +88,6 @@ if __name__ == "__main__":
             input_column=args.input_column,
             input_worksheet=args.input_worksheet,
             output_worksheet=args.output_worksheet,
-            verbose=args.verbose,
         )
     except KeyboardInterrupt:
         logger.warning("\nOperation cancelled by user")
