@@ -75,7 +75,8 @@ For focused research tasks, simpler, clearer instructions proved more effective 
 ## Areas for Future Enhancement
 
 ### Web Scraping Optimization
-- **Search Depth**: Implement deeper, more comprehensive web searches
+There is always room for improvement. I notice some information is not accurate, so maybe we can do this:
+- **Search Depth**: Implement deeper, more comprehensive and more accurate web searches
 - **Query Refinement**: Develop smarter search query generation
 - **Source Diversification**: Expand beyond initial search results
 
@@ -95,3 +96,6 @@ Due to time constraints, comprehensive evaluation is still pending. Future impro
 This multi-agent approach provides a scalable, maintainable solution for automated company research. By focusing each agent on specific tasks and using clear, constraint-based prompting, the system achieves reliable results while remaining easy to debug and improve.
 
 The modular design allows for incremental enhancements to individual components without affecting the entire system, making it well-suited for production environments where reliability and consistency are paramount.
+
+## Example Output
+[Lit Company Summary Spreadsheet](https://docs.google.com/spreadsheets/d/1Jz_FgPhoU5cfWR_vgNIAFrhJu5quipcWVtiM4G6y5fM/edit?usp=sharing)
