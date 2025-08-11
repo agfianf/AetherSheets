@@ -1,37 +1,96 @@
 <div align="center">
-<!-- image logo -->
 <img src="assets/logo-aethersheets.png" alt="AetherSheets Logo" width="150"/>
-
-# AetherSheets
-
-<br>
-
-[![python-version](https://img.shields.io/pypi/pyversions/color-correction)](https://badge.fury.io/py/color-correction)
-
 </div>
 
+## Overview
 
-_AetherSheets is a lightweight pipeline that connects Google Sheets with Large Language Models (LLMs) like OpenAI GPT to process and enrich data automatically._
-
-Simply put your inputs in one sheet, let AetherSheets run, and get your AI-generated outputs in a new sheet — perfect for summaries, data enrichment, transformations, and more.
+AetherSheets is a lightweight pipeline that connects Google Sheets with Large Language Models to automatically process and enrich data. Input company names in one sheet, run the pipeline, and get AI-generated research summaries in a new sheet.
 
 ## Features
 
-1. Google Sheets Integration: Read and write data directly from a shared Google Sheet.
-2. LLM Processing: Uses OpenAI’s GPT API to process each row based on a flexible prompt.
-3. Automatic Output: Saves results to a separate worksheet in the same spreadsheet.
-4. General Purpose: Works for company summaries, keyword enrichment, sentiment analysis, or any custom task.
+- **Multi-Agent Research System** using LangGraph for coordinated company analysis
+- **Comprehensive Company Research** across 4 dimensions: overview, leadership, financials, and recent news
+- **Google Sheets Integration** for seamless input/output workflows
+- **CLI Interface** with dry-run and verbose logging options
+- **Real-time Web Search** via Tavily API for current information
 
-💡 Designed to be flexible — suitable for company summaries, text transformations, information extraction, or AI-based data enrichment.
+## Installation
 
-## Installations
+### Prerequisites
+- Python ≥ 3.12
+- Google Sheets API credentials  
+- OpenAI API key
+- Tavily API key
+
+### Setup
+```bash
+# Clone and install
+git clone <repository-url>
+cd <repo-name>
+uv sync
+
+# Configure environment
+cp .env.sample .env
+# Edit .env with your API keys
+```
+
+### Configuration
+
+Create `.env` file with:
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here
+GOOGLE_SHEET_ACCESS_CREDS=<stringify-of-json-creds>
+```
+
+**Google Sheets Setup:**
+1. Create Google Cloud Project and enable Sheets + Drive APIs
+2. Create Service Account and download credentials JSON
+3. Stringify the credential JSON to [this online tools](https://jsonformatter.org/json-stringify-online)
+4. Copy stringify JSON content to `GOOGLE_SHEET_ACCESS_CREDS` in .env
+5. Share your Google Sheet with the service account email
 
 ## Running
 
+### Basic Usage
+```bash
+# Process companies from Google Sheet
+uv run python src/main.py <spreadsheet_id>
 
-## Tech Stack
+# Custom configuration
+uv run python src/main.py <spreadsheet_id> \
+    --input-worksheet "Companies" \
+    --input-column "Company Name" \
+    --output-worksheet "Research Results"
 
-- Python
-- Google Sheets API
-- OpenAI API
-- `uv`
+# Debug and preview
+uv run python src/main.py <spreadsheet_id> --verbose --dry-run
+```
+
+### Input/Output Format Spreadsheet
+
+**Input Sheet:**
+```
+| Company Name |
+|-------------|
+| Apple Inc   |
+| Tesla       |
+```
+
+**Output Sheet:**
+```
+| Company   | Summary                                    |
+|-----------|-------------------------------------------|  
+| Apple Inc | **Company Overview**: Apple Inc is a...   |
+| Tesla     | **Company Overview**: Tesla Inc is...     |
+```
+
+## TechStack
+
+- **Python 3.12+** - Core runtime
+- **LangGraph** - Multi-agent workflow coordination
+- **OpenAI GPT** - AI content generation
+- **Tavily API** - Real-time web search
+- **Google Sheets API** - Spreadsheet integration
+- **structlog** - Structured logging
+- **uv** - Package management
