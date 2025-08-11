@@ -4,7 +4,7 @@ from typing import Annotated, TypedDict
 from langgraph.graph import END, START, StateGraph
 
 from integrations.llm import LLMClient
-from integrations.scraper import WebScraper
+from integrations.scraper import WebScrapper
 from prompts.company_research.prompt import (
     ABOUT_AGENT_PROMPT,
     COMPOSER_AGENT_PROMPT,
@@ -14,7 +14,7 @@ from prompts.company_research.prompt import (
 )
 
 llm = LLMClient()
-scrapper = WebScraper()
+scrapper = WebScrapper()
 
 
 class OverallState(TypedDict):

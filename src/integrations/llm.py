@@ -1,3 +1,5 @@
+from typing import Literal
+
 from openai import OpenAI
 
 from config import settings
@@ -27,15 +29,21 @@ class LLMClient:
 
         return response.choices[0].message.content
 
-    def generate_with_websearch(self, query: str) -> dict:
+    def generate_with_websearch(
+        self,
+        input_user: str,
+        model: Literal[
+            "gpt-4o-mini-search-preview", "gpt-4o-search-preview"
+        ] = "gpt-4o-mini-search-preview",
+    ) -> dict:
         """Perform a search using OpenAI's API."""
         completion = self.client.chat.completions.create(
-            model="gpt-4o-search-preview",
+            model=model,
             web_search_options={},
             messages=[
                 {
                     "role": "user",
-                    "content": "What was a positive news story from today?",
+                    "content": input_user,
                 }
             ],
         )

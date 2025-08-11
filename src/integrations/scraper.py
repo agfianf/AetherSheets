@@ -6,7 +6,7 @@ from tavily import TavilyClient
 from config import settings
 
 
-class WebScraper:
+class WebScrapper:
     def __init__(
         self,
         max_results: int = 5,
@@ -54,8 +54,14 @@ class WebScraper:
                 search_params["exclude_domains"] = exclude_domains
 
             print(f"Searching for: {query} with params: {search_params}")
-            result = self.client.search(**search_params)
-            return result
+            results = self.client.search(**search_params)
+            text_result = ""
+            for d in results["results"]:
+                text_result += f"Title: {d['title']}\n"
+                text_result += f"URL: {d['url']}\n"
+                text_result += f"Content: {d['content']}\n"
+                text_result += "\n\n"
+            return text_result
 
         except Exception as e:
             raise Exception(f"Search failed for query '{query}': {str(e)}")
@@ -70,7 +76,7 @@ class WebScraper:
 
 
 if __name__ == "__main__":
-    scraper = WebScraper()
+    scraper = WebScrapper()
     # list_company = ["Meta", "NVIDIA", "Apple"]
     # for company in list_company:
     #     profile = scraper.search(
