@@ -113,25 +113,25 @@ if __name__ == "__main__":
     values = gs_cli.read_cell(worksheet_name=worksheet_names[0])
     print("Values in first worksheet:", values)
 
-    columns = [
-        "Company",
-        "Overview",
-        "Bidang",
-        "Product",
-        "Official Website",
-    ]
-    values = [
-        [
-            f"Company {idx}",
-            f"Overview {idx}",
-            f"Bidang {idx}",
-            f"Product {idx}",
-            f"Official Website {idx}",
-        ]
-        for idx in range(10)
-    ]
-    gs_cli.append_rows(
-        columns=columns,
-        values=values,
-        worksheet_name="comp-summary",
-    )
+    # columns = [
+    #     "Company",
+    #     "Overview",
+    #     "Bidang",
+    #     "Product",
+    #     "Official Website",
+    # ]
+    # values = [
+    #     [
+    #         f"Company {idx}",
+    #         f"Overview {idx}",
+    #         f"Bidang {idx}",
+    #         f"Product {idx}",
+    #         f"Official Website {idx}",
+    #     ]
+    #     for idx in range(10)
+    # ]
+    # gs_cli.append_rows(
+    #     columns=columns,
+    #     values=values,
+    #     worksheet_name="comp-summary",
+    # )

@@ -9,5 +9,13 @@ wheels/
 # Virtual environments
 .venv
 .env
+
 access_key_gs.json
+gs_credentials.json
 .vscode
+.claude
+CLAUDE.md
+commit.md
+review.md
+stringify_json.py
+test.py

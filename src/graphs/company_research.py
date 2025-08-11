@@ -4,7 +4,7 @@ from typing import Annotated, TypedDict
 from langgraph.graph import END, START, StateGraph
 
 from integrations.llm import LLMClient
-from integrations.scraper import WebScrapper
+from integrations.scraper import WebScraper
 from prompts.company_research.prompt import (
     ABOUT_AGENT_PROMPT,
     COMPOSER_AGENT_PROMPT,
@@ -14,7 +14,7 @@ from prompts.company_research.prompt import (
 )
 
 llm = LLMClient()
-scrapper = WebScrapper()
+scraper = WebScraper()
 
 
 class OverallState(TypedDict):
@@ -27,7 +27,7 @@ class OverallState(TypedDict):
 
 
 def about_agent(state: OverallState) -> dict:
-    result_search = scrapper.search(
+    result_search = scraper.search(
         f"General information about {state['company']}", max_results=5
     )
 
@@ -39,7 +39,7 @@ def about_agent(state: OverallState) -> dict:
 
 
 def founder_agent(state: OverallState) -> dict:
-    result_search = scrapper.search(
+    result_search = scraper.search(
         f"Latest Founder and Co-Founder of {state['company']}",
         max_results=5,
     )
@@ -52,7 +52,7 @@ def founder_agent(state: OverallState) -> dict:
 
 
 def finance_agent(state: OverallState) -> dict:
-    result_search = scrapper.search(
+    result_search = scraper.search(
         f"Latest financial information of {state['company']}",
         max_results=5,
     )
@@ -65,7 +65,7 @@ def finance_agent(state: OverallState) -> dict:
 
 
 def news_agent(state: OverallState) -> dict:
-    result_search = scrapper.search(
+    result_search = scraper.search(
         f"Latest News of {state['company']}",
         max_results=5,
     )
