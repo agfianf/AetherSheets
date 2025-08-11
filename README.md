@@ -9,7 +9,7 @@ AetherSheets is a lightweight pipeline that connects Google Sheets with Large La
 ## Features
 
 #### Company Researcher
-![architecture](assets/workflow/1.png)
+![architecture](./assets/workflow/1.png)
 - **Multi-Agent Research System** using LangGraph for coordinated company analysis
 - **Comprehensive Company Research** across 4 dimensions: overview-profile, leadership, financials, and recent news
 - **Google Sheets Integration** for seamless input/output workflows

@@ -19,7 +19,7 @@ While technical implementation details can be learned from documentation and AI 
 
 ## System Architecture
 
-![architecture](assets/workflow/1.png)
+![architecture](../assets/workflow/1.png)
 
 ### Process Flow
 
