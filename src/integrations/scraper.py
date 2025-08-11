@@ -1,18 +1,21 @@
 import time
 from typing import Literal
 
+import structlog
 from tavily import TavilyClient
 
 from config import settings
 
+logger = structlog.get_logger(__name__)
 
-class WebScrapper:
+
+class WebScraper:
     def __init__(
         self,
         max_results: int = 5,
         delay: int = 0.25,
         api_key: str | None = None,
-        search_depth: Literal["basic", "advanced"] | None = None,
+        search_depth: Literal["basic", "advanced"] = "basic",
     ):
         self.api_key = api_key or settings.TAVILY_API_KEY
         self.client = TavilyClient(api_key=self.api_key)
@@ -53,7 +56,11 @@ class WebScrapper:
             if exclude_domains:
                 search_params["exclude_domains"] = exclude_domains
 
-            print(f"Searching for: {query} with params: {search_params}")
+            logger.info(
+                "Searching for: {query} with params: {search_params}".format(
+                    query=query, search_params=search_params
+                )
+            )
             results = self.client.search(**search_params)
             text_result = ""
             for d in results["results"]:
@@ -76,7 +83,7 @@ class WebScrapper:
 
 
 if __name__ == "__main__":
-    scraper = WebScrapper()
+    scraper = WebScraper()
     # list_company = ["Meta", "NVIDIA", "Apple"]
     # for company in list_company:
     #     profile = scraper.search(

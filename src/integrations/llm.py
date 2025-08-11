@@ -33,7 +33,8 @@ class LLMClient:
         self,
         input_user: str,
         model: Literal[
-            "gpt-4o-mini-search-preview", "gpt-4o-search-preview"
+            "gpt-4o-mini-search-preview",
+            "gpt-4o-search-preview",
         ] = "gpt-4o-mini-search-preview",
     ) -> dict:
         """Perform a search using OpenAI's API."""

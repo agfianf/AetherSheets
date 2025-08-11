@@ -10,4 +10,7 @@ wheels/
 .venv
 .env
 access_key_gs.json
+gs_credentials.json
 .vscode
+.claude
+CLAUDE.md
