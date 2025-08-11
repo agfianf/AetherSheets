@@ -99,7 +99,7 @@ The modular design allows for incremental enhancements to individual components 
 
 ## Example Output
 
-[Lit Company Summary Spreadsheet](https://docs.google.com/spreadsheets/d/1Jz_FgPhoU5cfWR_vgNIAFrhJu5quipcWVtiM4G6y5fM/edit?usp=sharing)
+[List Company Summary Spreadsheet](https://docs.google.com/spreadsheets/d/1Jz_FgPhoU5cfWR_vgNIAFrhJu5quipcWVtiM4G6y5fM/edit?usp=sharing)
 
 ![input](../assets/workflow/input.png)
 ![output](../assets/workflow/output.png)
