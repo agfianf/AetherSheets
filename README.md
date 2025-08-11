@@ -56,17 +56,14 @@ GOOGLE_SHEET_ACCESS_CREDS=<stringify-of-json-creds>
 
 ### Basic Usage
 ```bash
-# Process companies from Google Sheet
-uv run python src/main.py <spreadsheet_id>
+# Process companies from Google Sheet, all will be default
+uv run src/main.py <spreadsheet_id>
 
 # Custom configuration
-uv run python src/main.py <spreadsheet_id> \
+uv run src/main.py <spreadsheet_id> \
     --input-worksheet "Companies" \
     --input-column "Company Name" \
     --output-worksheet "Research Results"
-
-# Debug and preview
-uv run python src/main.py <spreadsheet_id> --verbose --dry-run
 ```
 
 ### Input/Output Format Spreadsheet
