@@ -45,8 +45,6 @@ class GoogleSheetsClient:
             else:
                 val_worksheet = sheet.get_all_values()
 
-            # values = self._handle_rate_limit(worksheet.get, range_name)
-
             # Convert to list of lists format
             if not val_worksheet:
                 return []
