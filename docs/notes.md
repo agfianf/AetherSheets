@@ -98,4 +98,9 @@ This multi-agent approach provides a scalable, maintainable solution for automat
 The modular design allows for incremental enhancements to individual components without affecting the entire system, making it well-suited for production environments where reliability and consistency are paramount.
 
 ## Example Output
+
 [Lit Company Summary Spreadsheet](https://docs.google.com/spreadsheets/d/1Jz_FgPhoU5cfWR_vgNIAFrhJu5quipcWVtiM4G6y5fM/edit?usp=sharing)
+
+![input](../assets/workflow/input.png)
+![output](../assets/workflow/output.png)
+![output logs](../assets/workflow/outputlogs.png)
