@@ -85,6 +85,38 @@ uv run python src/main.py <spreadsheet_id> --verbose --dry-run
 | Tesla     | **Company Overview**: Tesla Inc is...     |
 ```
 
+## Docker Usage
+
+### Build and Run with Docker
+
+```bash
+# Build the Docker image
+make docker-build
+# or manually: docker build -t aethersheets .
+
+# Run the application in container
+make docker-run
+# or manually: docker run --rm -it -v $(pwd):/app -v $(pwd)/.env:/app/.env aethersheets uv run python src/main.py
+
+# Start interactive bash shell in container
+make docker-shell
+# or manually: docker run --rm -it -v $(pwd):/app -v $(pwd)/.env:/app/.env aethersheets
+```
+
+### Makefile Commands
+
+The project includes a Makefile for common development tasks:
+
+```bash
+make help          # Show all available commands
+make install       # Install dependencies using uv
+make run           # Run the application
+make clean         # Clean cache and temporary files
+make docker-build  # Build Docker image
+make docker-run    # Run application in Docker
+make docker-shell  # Interactive bash shell in Docker
+```
+
 ## TechStack
 
 - **Python 3.12+** - Core runtime
@@ -94,3 +126,4 @@ uv run python src/main.py <spreadsheet_id> --verbose --dry-run
 - **Google Sheets API** - Spreadsheet integration
 - **structlog** - Structured logging
 - **uv** - Package management
+- **Docker** - Containerization for consistent environments
