@@ -84,4 +84,4 @@ class Settings(BaseSettings):
 
 logger.info("Loading settings...")
 settings = Settings()
-logger.info("Loaded settings!", settings=settings.model_dump())
+logger.info("Loaded settings!")
