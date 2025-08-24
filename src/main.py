@@ -3,8 +3,8 @@ import sys
 
 import structlog
 
-from services.company_summary import CompanyResearchSummarization
 from helpers.url_parser import extract_spreadsheet_id
+from services.company_summary import CompanyResearchSummarization
 
 logger = structlog.get_logger(__name__)
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         except ValueError as e:
             logger.error(f"Invalid spreadsheet URL or ID: {e}")
             sys.exit(1)
-            
+
         main(
             spreadsheet_id=spreadsheet_id,
             input_column=args.input_column,
