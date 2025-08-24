@@ -1,10 +1,14 @@
 import gspread
+import structlog
 
 from config import settings
+
+logger = structlog.get_logger(__name__)
 
 
 class GoogleSheetsClient:
     def __init__(self, spreadsheet_id: str | None = None):
+        logger.info("Initialize Google Sheets Client")
         self.client = None
         self.workspace = None
         self._connect()
@@ -13,9 +17,11 @@ class GoogleSheetsClient:
 
     def _connect(self):
         try:
+            logger.info("Connecting to google-spreadsheet...")
             self.client = gspread.service_account_from_dict(
                 settings.GOOGLE_SHEET_ACCESS_DICT
             )
+            logger.info("Connected google-spreadsheet!")
         except Exception as e:
             raise Exception(f"Failed to connect to Google Sheets: {str(e)}")
 

@@ -1,8 +1,11 @@
 import json
 from typing import Any
 
+import structlog
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+logger = structlog.get_logger(__name__)
 
 
 class Settings(BaseSettings):
@@ -17,25 +20,68 @@ class Settings(BaseSettings):
     GOOGLE_SHEET_ACCESS_DICT: dict[str, Any] = Field(default_factory=dict, description="Parsed Google Sheets access key")
     # fmt: on
 
+    def _parse_json_recursive(data: str, max_attempts: int = 3) -> dict[str, Any]:
+        """Recursively parse JSON string, handling nested JSON."""
+        current_data = data
+
+        for attempt in range(max_attempts):
+            try:
+                parsed = json.loads(current_data)
+
+                # If result is dict, we're done
+                if isinstance(parsed, dict):
+                    logger.debug(f"Successfully parsed JSON on attempt {attempt + 1}")
+                    return parsed
+
+                # If result is still string, try parsing again
+                elif isinstance(parsed, str):
+                    current_data = parsed
+                    logger.debug(
+                        f"Attempt {attempt + 1}: Got nested JSON string, trying again"
+                    )
+                    continue
+
+                else:
+                    raise ValueError(
+                        f"Unexpected type after JSON parsing: {type(parsed)}"
+                    )
+
+            except json.JSONDecodeError as e:
+                if attempt == 0:
+                    # Try to clean up common issues on first attempt
+                    cleaned = current_data.strip().strip("\"'")
+                    if cleaned != current_data:
+                        current_data = cleaned
+                        logger.debug("Cleaned up quotes, retrying...")
+                        continue
+
+                logger.error(f"JSON parsing failed on attempt {attempt + 1}: {e}")
+                raise ValueError(f"Invalid JSON in GOOGLE_SHEET_ACCESS_CREDS: {e}")
+
+        raise ValueError("Max parsing attempts reached")
+
     @field_validator("GOOGLE_SHEET_ACCESS_DICT", mode="before")
     @classmethod
     def parse_google_sheet_access_key(cls, v: Any, info) -> dict[str, Any]:
         """Parse the GOOGLE_SHEET_ACCESS_CREDS JSON string into a dictionary."""
+
         if v and not isinstance(v, dict):
             return v
 
-        # Get the raw GOOGLE_SHEET_ACCESS_CREDS value from the data being validated
         if hasattr(info, "data") and "GOOGLE_SHEET_ACCESS_CREDS" in info.data:
             access_key = info.data["GOOGLE_SHEET_ACCESS_CREDS"]
-            if isinstance(access_key, str):
-                try:
-                    return json.loads(access_key)
-                except json.JSONDecodeError as e:
-                    raise ValueError(f"Invalid JSON in GOOGLE_SHEET_ACCESS_CREDS: {e}")
-            elif isinstance(access_key, dict):
-                return access_key
+            try:
+                gs_access = cls._parse_json_recursive(access_key)
+                if gs_access == {}:
+                    raise ValueError("Failed parsed google spreadheet creds!")
+                logger.debug("Successfully Parsed Google Sheets Creds!")
+                return gs_access
+            except json.JSONDecodeError as e:
+                raise ValueError(f"Invalid JSON in GOOGLE_SHEET_ACCESS_DICT: {e}")
 
-        return {}
+        raise ValueError("Invalid Google Access Creds!")
 
 
+logger.info("Loading settings...")
 settings = Settings()
+logger.info("Loaded settings!", settings=settings.model_dump())

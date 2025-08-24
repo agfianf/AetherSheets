@@ -29,6 +29,7 @@ AetherSheets is a lightweight pipeline that connects Google Sheets with Large La
 # Clone and install
 git clone <repository-url>
 cd <repo-name>
+git checkout main
 uv sync
 
 # Configure environment
@@ -54,7 +55,22 @@ GOOGLE_SHEET_ACCESS_CREDS=<stringify-of-json-creds>
 
 ## Running
 
-### Basic Usage
+### Using Make (Recommended)
+```bash
+# Basic usage with Google Sheets URL
+make run SHEET='https://docs.google.com/spreadsheets/d/1Jz_FgPhoU5cfWR_vgNIAFrhJu5quipcWVtiM4G6y5fM/edit'
+
+# Basic usage with spreadsheet ID
+make run SHEET='1Jz_FgPhoU5cfWR_vgNIAFrhJu5quipcWVtiM4G6y5fM'
+
+# Custom configuration with make
+make run SHEET='https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit' \
+    INPUT_COL='Company Name' \
+    INPUT_WS='Companies' \
+    OUTPUT_WS='Research Results'
+```
+
+### Direct Python Usage
 ```bash
 # Process companies from Google Sheet, all will be default
 uv run src/main.py <spreadsheet_id>

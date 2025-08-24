@@ -3,6 +3,7 @@ import sys
 
 import structlog
 
+from helpers.url_parser import extract_spreadsheet_id
 from services.company_summary import CompanyResearchSummarization
 
 logger = structlog.get_logger(__name__)
@@ -55,7 +56,7 @@ Examples:
     )
 
     parser.add_argument(
-        "spreadsheet_id", help="Google Sheets spreadsheet ID (found in the URL)"
+        "spreadsheet_id_or_url", help="Google Sheets spreadsheet ID or full URL"
     )
 
     parser.add_argument(
@@ -83,8 +84,16 @@ if __name__ == "__main__":
     parser = create_parser()
     args = parser.parse_args()
     try:
+        # Extract spreadsheet ID from URL or use as-is if already an ID
+        try:
+            spreadsheet_id = extract_spreadsheet_id(args.spreadsheet_id_or_url)
+            logger.info(f"Using spreadsheet ID: {spreadsheet_id}")
+        except ValueError as e:
+            logger.error(f"Invalid spreadsheet URL or ID: {e}")
+            sys.exit(1)
+
         main(
-            spreadsheet_id=args.spreadsheet_id,
+            spreadsheet_id=spreadsheet_id,
             input_column=args.input_column,
             input_worksheet=args.input_worksheet,
             output_worksheet=args.output_worksheet,
